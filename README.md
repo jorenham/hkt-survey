@@ -31,11 +31,10 @@ $\ast \to \ast \to \ast$, etc. At a call site the checker solves a
 higher-order unification of the parameter against the argument type,
 
 ```math
-\begin{aligned}
-T[V] \;&\sim\; \texttt{asyncio.Task}[\texttt{int}] \\
-       &\Longrightarrow\quad T = \texttt{asyncio.Task} \\
-       &\phantom{\Longrightarrow}\quad V = \texttt{int}
-\end{aligned}
+\begin{gathered}
+T[V] \;\sim\; \texttt{asyncio.Task}[\texttt{int}] \\
+\Longrightarrow\quad T = \texttt{asyncio.Task}, \quad V = \texttt{int}
+\end{gathered}
 ```
 
 so `map_async(str, t)` with `t: asyncio.Task[int]` has type
