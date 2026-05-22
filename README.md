@@ -39,7 +39,7 @@ No new surface syntax is implied; the point is the semantics.
 | Example                                                                | Library                       | Refs                                          |
 | ---------------------------------------------------------------------- | ----------------------------- | --------------------------------------------- |
 | [bidict_inverse.md](bidict_inverse.md)                                 | bidict                        | [typing#548][bidict-issue], [src][bidict-src] |
-| [numpy_ndarray_subclass.md](numpy_ndarray_subclass.md)                 | NumPy                         | numpy/numpy#29807, numpy/numpy#20072          |
+| [numpy_ndarray_view.md](numpy_ndarray_view.md)                         | NumPy                         | [src][np-view]                                |
 | [scipy_sparse_astype.md](scipy_sparse_astype.md)                       | scipy-stubs                   | [src][scipy-astype]                           |
 | [scipy_transformed_distribution.md](scipy_transformed_distribution.md) | scipy-stubs                   | [src][scipy-dist]                             |
 | [gevent_group_greenlet.md](gevent_group_greenlet.md)                   | gevent (typeshed)             | [src][gevent-src]                             |
@@ -55,6 +55,7 @@ No new surface syntax is implied; the point is the semantics.
 [proposal]: https://github.com/python/typing/issues/548#issuecomment-1898377873
 [bidict-issue]: https://github.com/python/typing/issues/548#issuecomment-621195693
 [bidict-src]: https://github.com/jab/bidict/blob/84bceb12/bidict/_abc.py#L42-L43
+[np-view]: https://github.com/numpy/numpy/blob/bf8007a5/numpy/__init__.pyi#L3943-L3957
 [scipy-astype]: https://github.com/scipy/scipy-stubs/blob/4d51a695/scipy-stubs/sparse/_base.pyi#L806-L866
 [scipy-dist]: https://github.com/scipy/scipy-stubs/blob/4d51a695/scipy-stubs/stats/_distribution_infrastructure.pyi#L1330-L1340
 [gevent-src]: https://github.com/python/typeshed/blob/ee212088/stubs/gevent/gevent/pool.pyi#L166-L199
