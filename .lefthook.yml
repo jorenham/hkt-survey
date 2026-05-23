@@ -1,0 +1,8 @@
+pre-commit:
+  parallel: true
+  skip: [merge, rebase]
+  jobs:
+    - name: dprint
+      glob: "*.{json,jsonc,md,toml,yaml,yml}"
+      stage_fixed: true
+      run: uvx --from=dprint-py dprint fmt --incremental=false
