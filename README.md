@@ -21,31 +21,23 @@ applied with `T[...]`. A variable with no family bound (e.g.
 `def f[F](x: F[int]) -> F[str]`) is still higher-kinded, recognized by its
 subscripted use.
 
-```python
-def map_async[V, R, T: Origin[Awaitable]](fn: Callable[[V], R], aval: T[V]) -> T[R]: ...
-```
-
-Ordinary types have [kind][kind] $\ast$; `T` here is a type operator of kind
-$\ast \to \ast$, and binary constructors have kind
-$\ast \to \ast \to \ast$, etc. At a call site the checker solves a
-higher-order unification of the parameter against the argument type,
+Ordinary types have [kind][kind] $\ast$; a unary type constructor is a type
+operator of kind $\ast \to \ast$, binary ones $\ast \to \ast \to \ast$, etc.
+At a call site the checker solves a higher-order unification of the parameter
+against the argument type,
 
 ```math
-\begin{gathered}
-T[V] \;\sim\; \texttt{asyncio.Task}[\texttt{int}] \\
-\Longrightarrow\quad T = \texttt{asyncio.Task}, \quad V = \texttt{int}
-\end{gathered}
+\dfrac
+    {\begin{array}{c} F, G \;:\; \ast \to \ast \qquad X, Y \;:\; \ast \\ F \;\sim\; G \qquad X \;\sim\; Y \end{array}}
+    {F[X] \;\sim\; G[Y]}
 ```
 
-so `map_async(str, t)` with `t: asyncio.Task[int]` has type
-`asyncio.Task[R]` where $R$ is fixed by `fn`. No new surface syntax is
-implied; the point is the semantics.
+No new surface syntax is implied; the point is the semantics.
 
 ## Index
 
 | Example                                                                | Library                       | Refs                                          |
 | ---------------------------------------------------------------------- | ----------------------------- | --------------------------------------------- |
-| [functor_map_async.md](functor_map_async.md)                           | stdlib (`asyncio`)            | [typing#548][proposal]                        |
 | [bidict_inverse.md](bidict_inverse.md)                                 | bidict                        | [typing#548][bidict-issue], [src][bidict-src] |
 | [numpy_ndarray_subclass.md](numpy_ndarray_subclass.md)                 | NumPy                         | numpy/numpy#29807, numpy/numpy#20072          |
 | [scipy_sparse_getitem.md](scipy_sparse_getitem.md)                     | scipy-stubs                   | [src][scipy-dok]                              |
