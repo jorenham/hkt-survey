@@ -44,6 +44,7 @@ No new surface syntax is implied; the point is the semantics.
 | [scipy_transformed_distribution.md](scipy_transformed_distribution.md) | scipy-stubs                   | [src][scipy-dist]                             |
 | [gevent_group_greenlet.md](gevent_group_greenlet.md)                   | gevent (typeshed)             | [src][gevent-src]                             |
 | [tensorflow_gradient_tape.md](tensorflow_gradient_tape.md)             | tensorflow (typeshed)         | [src][tf-src]                                 |
+| [django_admin_register.md](django_admin_register.md)                   | django-stubs                  | #9, [src][django-src]                         |
 | [dict_fromkeys.md](dict_fromkeys.md)                                   | stdlib (`dict`/`OrderedDict`) | python/typeshed#6485, python/typeshed#3800    |
 | [returns_monad_bind.md](returns_monad_bind.md)                         | returns                       | [docs][returns-hkt]                           |
 
@@ -58,3 +59,4 @@ No new surface syntax is implied; the point is the semantics.
 [scipy-dist]: https://github.com/scipy/scipy-stubs/blob/4d51a695/scipy-stubs/stats/_distribution_infrastructure.pyi#L1330-L1340
 [gevent-src]: https://github.com/python/typeshed/blob/ee212088/stubs/gevent/gevent/pool.pyi#L166-L199
 [tf-src]: https://github.com/python/typeshed/blob/ee212088/stubs/tensorflow/tensorflow/autodiff.pyi#L26-L58
+[django-src]: https://github.com/typeddjango/django-stubs/blob/75ec8092/django-stubs/contrib/admin/decorators.pyi#L63-L65
