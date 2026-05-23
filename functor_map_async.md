@@ -1,36 +1,39 @@
-# Functor-style map over an arbitrary Awaitable
+# Functor-style map over an `asyncio.Future`
 
-Source: [python/typing#548 (comment)][proposal]
+Based on: [python/typing#548 (comment)][proposal]
 
-Kind: `T` is $\ast \to \ast$ (the `Awaitable` operator).
+Kind: `K` is $\ast \to \ast$ (the `asyncio.Future` operator).
 
 ## Definition
 
 ```python
-from collections.abc import Awaitable, Callable
-from typing import Origin
+import asyncio
+from typing import Any, Callable, Origin
 
-# T is the Awaitable type operator, applied by subscription.
-def map_async[V, R, T: Origin[Awaitable]](
-    fn: Callable[[V], R],
-    aval: T[V],
-    /,
-) -> T[R]: ...
+def map_async[InT, OutT, K: Origin[asyncio.Future[Any]]](
+    function: Callable[[InT], OutT],
+    future: K[InT],
+) -> K[OutT]:
+    out: asyncio.Future[OutT] = asyncio.get_running_loop().create_future()
+
+    def on_done(in_: asyncio.Future[InT], /) -> None:
+        out.set_result(function(in_.result()))
+
+    future.add_done_callback(on_done)
+
+    return out
 ```
 
 ## Call sites
 
 ```python
-task: asyncio.Task[int]
+fut: asyncio.Future[int] = ...
+tsk: asyncio.Task[int] = ...  # asyncio.Task[T] <: asyncio.Future[T]
 
-# from aval = Task[int]: infer T = asyncio.Task, V = int; fn: int -> str
-reveal_type(map_async(str, task))  # asyncio.Task[str]
+reveal_type(map_async(str, fut))  # asyncio.Future[str]
+reveal_type(map_async(str, tsk))  # asyncio.Task[str]
 
-# aval is not T[V] for any Awaitable type constructor T
-map_async(str, 3)  # E: int is not an Awaitable[V]
-
-# fn domain must match the inner type V of aval (here V = int)
-map_async(str.upper, task)  # E: (str) -> str not applicable to V=int
+map_async(str.upper, fut)  # E: (str) -> str not applicable to InT=int
 ```
 
 [proposal]: https://github.com/python/typing/issues/548#issuecomment-1898377873
