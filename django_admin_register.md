@@ -10,7 +10,7 @@ Kind: `K` is $\ast \to \ast$ (`ModelAdmin[M]`).
 
 ## Motivation
 
-Today the decorator binds the admin via a `TypeVarbound` with `bound=ModelAdmin[Any])`:
+Today the decorator binds the admin via a `TypeVar` with `bound=ModelAdmin[Any])`:
 the admin subclass is preserved, but the model parameter is erased, so this is silently
 accepted:
 
